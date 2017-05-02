@@ -1,0 +1,53 @@
+import os
+import yaml
+import jinja2
+import logging
+import time
+import datetime
+from typing import Callable, Tuple, List
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+
+
+def yaml_load(stream) -> dict:
+    return yaml.load(stream, Loader=Loader)
+
+
+def yaml_dump(obj: dict) -> str:
+    return yaml.dump(obj, Dumper=Dumper)
+
+
+def build_template_environment(templates_path):
+    return jinja2.Environment(
+        loader=jinja2.FileSystemLoader(templates_path),
+        lstrip_blocks=True,
+    )
+
+
+def load_config(default: dict):
+    config_file_name = 'config.yaml'
+    with open(config_file_name) as config_file:
+        config = yaml_load(config_file)
+    default.update(config)
+    return default
+
+
+def build_logger():
+    logger = logging.getLogger()
+    logger.addHandler(logging.StreamHandler())
+    logger.setLevel(logging.INFO)
+    return logger
+
+
+def walk(path, is_ignore: Callable[[str], bool]):
+    for (root, dirs, files) in os.walk(path):
+        dirs[:] = [dir_name for dir_name in dirs if not is_ignore(dir_name)]
+        files = [file for file in files if not is_ignore(file)]
+        yield (root, files)
+
+
+def creation_time(filename):
+    ctime = time.ctime(os.path.getctime(filename))
+    return datetime.datetime.strptime(ctime, "%a %b %d %H:%M:%S %Y")

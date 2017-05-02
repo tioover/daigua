@@ -1,0 +1,9 @@
+appdirs==1.4.3
+Cython==0.25.2
+Jinja2==2.9.6
+MarkupSafe==1.0
+mistune==0.7.4
+packaging==16.8
+pyparsing==2.2.0
+PyYAML==3.12
+six==1.10.0
