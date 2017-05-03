@@ -1,4 +1,4 @@
 # daigua
 Another static site generator.
 
-Require Python 3, Don't support Windows.
+Requires Python 3, no support for Windows.
