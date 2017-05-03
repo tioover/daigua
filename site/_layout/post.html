@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site.title }} > {{ category }} > {{ title }}</title>
+</head>
+<body>
+<main class="blog-post">
+    <date>{{ page.date.strftime("%y/%m/%d") }}</date>
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

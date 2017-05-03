@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello, world</title>
+</head>
+<body>
+<h1>Hello, world</h1>
+
+<h2>Posts</h2>
+<ul>
+    {% for page in site.pages if page.post %}
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
